@@ -156,10 +156,10 @@ local locale = player.LocaleId
 local messages = {}
 if string.sub(locale,1,2) == "tr" then
 	messages = {
-		SongAdded = "✅ Şarkı başarıyla eklendi!",
-		SongFailed = "❌ Şarkı eklenemedi!",
-		VolumeChanged = "✅ Ses başarıyla ayarlandı!",
-		VolumeFailed = "❌ Ses ayarlanamadı!"
+		SongAdded = "✅ Song Added Succsessfully!",
+		SongFailed = "❌ Failed to add song!",
+		VolumeChanged = "✅ Volume adjusted successfully!",
+		VolumeFailed = "❌ Failed to adjust volume!"
 	}
 else
 	messages = {

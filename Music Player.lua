@@ -7,7 +7,6 @@ local gui = Instance.new("ScreenGui")
 gui.Name = "MusicPlayer"
 gui.Parent = player:WaitForChild("PlayerGui")
 
--- Ana frame
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 460, 0, 400)
 frame.Position = UDim2.new(0.5, -230, 0.5, -200)
@@ -15,7 +14,6 @@ frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 frame.Parent = gui
 Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)
 
--- Başlık
 local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, -20, 0, 30)
 title.Position = UDim2.new(0, 10, 0, 5)
@@ -27,7 +25,6 @@ title.TextColor3 = Color3.fromRGB(255,255,255)
 title.TextXAlignment = Enum.TextXAlignment.Left
 title.Parent = frame
 
--- Çalan şarkı
 local currentSongLabel = Instance.new("TextLabel")
 currentSongLabel.Size = UDim2.new(1, -20, 0, 25)
 currentSongLabel.Position = UDim2.new(0, 10, 0, 40)
@@ -39,7 +36,6 @@ currentSongLabel.TextXAlignment = Enum.TextXAlignment.Left
 currentSongLabel.Text = "Playing: "
 currentSongLabel.Parent = frame
 
--- Volume
 local volumeLabel = Instance.new("TextLabel")
 volumeLabel.Size = UDim2.new(0, 60, 0, 20)
 volumeLabel.Position = UDim2.new(0, 20, 0, 70)
@@ -62,7 +58,6 @@ volumeBox.TextScaled = true
 volumeBox.Parent = frame
 Instance.new("UICorner", volumeBox).CornerRadius = UDim.new(0, 8)
 
--- Song ID
 local songLabel = Instance.new("TextLabel")
 songLabel.Size = UDim2.new(0, 60, 0, 20)
 songLabel.Position = UDim2.new(0, 200, 0, 70)
@@ -85,19 +80,14 @@ songBox.TextScaled = true
 songBox.Parent = frame
 Instance.new("UICorner", songBox).CornerRadius = UDim.new(0, 8)
 
--- Şarkılar
 local songs = {
 	{Name="Nostalgia", Id="9038238828"},
 	{Name="Morning Mood", Id="1846088038"},
 	{Name="The Four Seasons - Spring", Id="9045766074"},
 	{Name="Gymnopedie No.1", Id="9045766377"},
 	{Name="Clair de Lune", Id="1846315693"},
-	{Name="Bach – Toccata & Fugue", Id="564238335"},
-	{Name="Beethoven – Fur Elise", Id="450051032"},
-	{Name="Beethoven – Moonlight Sonata", Id="445023353"},
-	{Name="Imagine Dragons – Believer", Id="444949138"},
-	{Name="Lady Gaga – Applause", Id="130964099"},
-	{Name="BadLiZ – Roblox Theme (2006)", Id="1837465702"}
+	{Name="Bach – Toccata & Fugue", Id="103223485259114"},
+	{Name="Life in an Elevator", Id="1841647093"}
 }
 
 local current = 1
@@ -108,7 +98,6 @@ sound.SoundId = "rbxassetid://"..songs[current].Id
 sound:Play()
 currentSongLabel.Text = "Playing: "..songs[current].Name
 
--- Butonlar (play, pause, stop, next, prev)
 local function createButton(text, pos)
 	local b = Instance.new("TextButton")
 	b.Size = UDim2.new(0, 60, 0, 40)
@@ -147,7 +136,6 @@ prevBtn.MouseButton1Click:Connect(function()
 	currentSongLabel.Text = "Playing: "..songs[current].Name
 end)
 
--- Bildirim fonksiyonu
 local function showNotification(text,duration)
 	duration = duration or 2
 	local notif = Instance.new("Frame")
@@ -185,7 +173,6 @@ local function showNotification(text,duration)
 	end)
 end
 
--- Dil tespiti
 local locale = player.LocaleId
 local messages = {}
 if string.sub(locale,1,2) == "tr" then
@@ -194,7 +181,6 @@ else
 	messages = {SongAdded="✅ Song added successfully!",SongFailed="❌ Failed to add song!",VolumeChanged="✅ Volume adjusted successfully!",VolumeFailed="❌ Failed to adjust volume!"}
 end
 
--- Song ekleme
 songBox.FocusLost:Connect(function(enter)
 	if enter and tonumber(songBox.Text) then
 		if math.random()<0.5 then
@@ -208,7 +194,6 @@ songBox.FocusLost:Connect(function(enter)
 	end
 end)
 
--- Volume ayarı
 volumeBox.FocusLost:Connect(function(enter)
 	if enter then
 		local vol=tonumber(volumeBox.Text)
@@ -224,7 +209,6 @@ volumeBox.FocusLost:Connect(function(enter)
 	end
 end)
 
--- Progress bar
 local progressBarMain=Instance.new("Frame")
 progressBarMain.Size=UDim2.new(0,400,0,5)
 progressBarMain.Position=UDim2.new(0,30,0,150)
@@ -245,7 +229,6 @@ RunService.RenderStepped:Connect(function()
 	end
 end)
 
--- Şarkı listesi ana GUI içine
 local listFrame = Instance.new("Frame")
 listFrame.Size = UDim2.new(1,-20,0,180)
 listFrame.Position = UDim2.new(0,10,0,180)
@@ -308,7 +291,6 @@ for i,song in ipairs(songs) do
 	end)
 end
 
--- Kapat ve mini buton
 local closeBtn = Instance.new("TextButton")
 closeBtn.Size = UDim2.new(0,30,0,30)
 closeBtn.Position = UDim2.new(1,-40,0,10)
@@ -352,7 +334,6 @@ miniBtn.MouseButton1Click:Connect(function()
 	end
 end)
 
--- Frame sürükleme
 local dragToggle, dragStart, startPos
 frame.InputBegan:Connect(function(input)
 	if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then
@@ -373,7 +354,6 @@ frame.InputEnded:Connect(function(input)
 	end
 end)
 
--- Mini buton sürükleme
 local dragToggleMini, dragStartMini, startPosMini
 miniBtn.InputBegan:Connect(function(input)
 	if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then
